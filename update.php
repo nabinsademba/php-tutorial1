@@ -1,3 +1,13 @@
+<?php 
+  
+  if (isset($_GET['id']) && ctype_digit($_GET['id'])) {
+      $id = $_GET['id'];
+  } else {
+      header('location: select.php');
+  }
+
+
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,9 +15,11 @@
 </head>
 <body>
 <?php 
+
    $name = '';
    $gender = '';
    $color = '';
+  
 
   if(isset($_POST['submit'])){
       $ok = true;
@@ -27,18 +39,30 @@
          $color = $_POST['color'];
       }
       if ($ok) {
-         //add databse connection
-         $db = mysqli_connect('localhost', 'root', '', 'php');
-         $sql = sprintf("INSERT INTO users (name, gender, color) VALUES ('%s',
-          '%s', '%s')", 
-          mysqli_real_escape_string($db, $name),
-        mysqli_real_escape_string($db, $gender),
-      mysqli_real_escape_string($db, $color));
-         mysqli_query($db, $sql);
-         mysqli_close($db);
-         echo '<p>User added.</p>';
+         //update database
+        $db = mysqli_connect('localhost', 'root', '', 'php');
+        $sql = sprintf("UPDATE users SET name ='%s', gender ='%s', color ='%s'
+            WHERE id=%s",
+            mysqli_real_escape_string($db, $name),
+            mysqli_real_escape_string($db, $gender),
+            mysqli_real_escape_string($db, $color),
+            $id
+          );
+            mysqli_query($db, $sql);
+            echo '<p>USer Update.</p>';
+            mysqli_close($db);
     
        }
+     } else {
+      $db = mysqli_connect('localhost', 'root', '', 'php');
+      $sql = sprintf('SELECT * FROM users WHERE id=%s', $id);
+      $result = mysqli_query($db, $sql); 
+      foreach ($result as $row) {
+        $name = $row['name'];
+        $gender = $row['gender'];
+        $color = $row['color'];
+      }
+         mysqli_close($db);
      }
  ?>
    <form method="post" action="">
