@@ -9,7 +9,7 @@
 	<ul>
 	<?php  
 
-	$db = mysqli_connect('localhost', 'root', '', 'php');
+	$db = mysqli_connect('server', 'username', 'password', 'databsename');
 	$sql = "SELECT * FROM users";
 	$result = mysqli_query($db, $sql);
 	foreach ($result as $row) {

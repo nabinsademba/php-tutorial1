@@ -32,7 +32,7 @@
       }
       if ($ok) {
          //add databse connection
-         $db = mysqli_connect('localhost', 'root', '', 'php');
+         $db = mysqli_connect('server', 'username', 'password', 'database');
          $sql = sprintf("INSERT INTO users (name, gender, color) VALUES ('%s',
           '%s', '%s')", 
           mysqli_real_escape_string($db, $name),
