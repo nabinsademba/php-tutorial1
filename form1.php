@@ -16,7 +16,7 @@
 	if(isset($_POST['submit'])){
       $ok = true;
       if (!isset($_POST['name']) || $_POST['name'] === ''){
-      $ok = false;   
+      $ok = false;     
       } else {
          $name = $_POST['name'];
       }
